@@ -4,3 +4,4 @@ project(ejemplo01)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(ejemplo01 main.cpp)
+add_executable(burbuja burbuja.cpp)
