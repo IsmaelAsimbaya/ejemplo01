@@ -1,0 +1,52 @@
+#include <cmath>
+#include <cstdio>
+#include <ctime>
+#include <iostream>
+#include <mpi.h>
+
+using namespace std;
+
+int main(int argc, char **argv) {
+
+  int rank;
+  int size;
+
+  MPI_Init(&argc, &argv);
+
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+  if (rank == 0) {
+    std::vector<int> data{
+        60, 38, 39, 12, 41, 38, 54, 53, 23, 21, 
+        3,  36, 15, 44, 52, 18, 41, 45, 51, 14,
+        40, 6,  50, 72, 24, 61, 86, 24, 85, 63, 
+        8,  27, 27, 5,  2,  51, 37, 25, 15, 12, 
+        35, 16, 14, 4,  41, 30, 6,  0,  37, 54, 
+        40, 10, 71, 21, 4,  42, 48, 72, 40, 22, 
+        0,  65, 63, 46, 31, 30, 25, 24, 8,  1,  
+        31, 33, 3,  44, 50, 49, 61, 71, 24, 38, 
+        27, 30, 26, 28, 62, 74, 24, 28, 56, 45, 
+        55, 17, 49, 50, 45, 5,  42, 16, 44, 42};
+    std::printf("datos: %ld \n", data.size());
+    MPI_Send(&data[0][0], 25, MPI_INT, 1, 0, MPI_COMM_WORLD);
+    MPI_Send(&data[20][0], 25, MPI_INT, 2, 0, MPI_COMM_WORLD);
+    MPI_Send(&data[40][0], 25, MPI_INT, 3, 0, MPI_COMM_WORLD);
+
+    for (int i = 60; i < data.size(); i++) {
+      bool aux = false;
+      for (int j = 0; j < diccionario.size(); j++) {
+        if (data[i] == diccionario[j][0]) {
+          diccionario[j][1] += 1;
+        }
+      }
+      if (aux) {
+        diccionario.push_back({data[i], 1});
+      }
+    }
+
+  } else {
+  }
+
+  return 0;
+}
